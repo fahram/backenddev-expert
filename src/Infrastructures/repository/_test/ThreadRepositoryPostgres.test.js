@@ -81,4 +81,19 @@ describe('ThreadRepositoryPostgres', () => {
         .rejects.toThrowError(NotFoundError);
     });
   });
+  describe('function getThreadById', () => {
+    it('should get thread correctly', async () => {
+      // Arrange
+      await UsersTableTestHelper.addUser({});
+      await ThreadsTableTestHelper.addThread({});
+      const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, {});
+
+      // Action
+      const thread = await threadRepositoryPostgres.getThreadById('thread-123', {});
+
+      // Arrange
+      expect(thread.id).toEqual('thread-123');
+      expect(thread.username).toEqual('dicoding');
+    });
+  });
 });

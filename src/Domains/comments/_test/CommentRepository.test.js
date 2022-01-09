@@ -16,5 +16,7 @@ describe('CommentRepository interface', () => {
       .rejects.toThrowError('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
     await expect(commentRepository.deleteComment(''))
       .rejects.toThrowError('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+    await expect(commentRepository.getAllCommentsOfThread(''))
+      .rejects.toThrowError('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   });
 });
