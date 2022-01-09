@@ -11,8 +11,6 @@ class GetThreadUseCase {
     await this._threadRepository.verifyAvailableThread(threadId);
     const thread = await this._threadRepository.getThreadById(threadId);
     const comments = await this._commentRepository.getAllCommentsOfThread(threadId);
-
-    // consider using map!
     for (const comment of comments) {
       const replies = await this._replyRepository.getAllRepliesOfComment(comment.id);
       comment.replies = replies;

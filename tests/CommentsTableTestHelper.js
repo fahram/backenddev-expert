@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+/* istanbul ignore file */
 
 const pool = require('../src/Infrastructures/database/postgres/pool');
 
@@ -28,7 +29,7 @@ const CommentsTableHelper = {
   },
 
   async cleanTable() {
-    await pool.query('DELETE FROM comments WHERE 1=1');
+    await pool.query('TRUNCATE TABLE comments');
   },
 };
 

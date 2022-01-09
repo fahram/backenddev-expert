@@ -14,7 +14,7 @@ describe('GetThreadUseCase', () => {
       new GetCommentsEntity({
         id: 'comment-123',
         username: 'dicoding',
-        date: '2021-11-28T03:46:19Z',
+        date: '2022-01-09T07:19:09.775Z',
         content: 'sebuah komentar',
         is_delete: false,
       }),
@@ -23,7 +23,7 @@ describe('GetThreadUseCase', () => {
       id: 'thread-123',
       title: 'sebuah judul',
       body: 'sebuah body',
-      date: '2021-11-28T03:46:19Z',
+      date: '2022-01-09T07:19:09.775Z',
       username: 'dicoding',
       comments: expectedComments,
     });
@@ -32,7 +32,7 @@ describe('GetThreadUseCase', () => {
       new GetRepliesEntity({
         id: 'reply-123',
         content: 'sebuah komentar',
-        date: '2021-11-28T03:46:19Z',
+        date: '2022-01-09T07:19:09.775Z',
         username: 'dicoding',
         is_delete: false,
       }),

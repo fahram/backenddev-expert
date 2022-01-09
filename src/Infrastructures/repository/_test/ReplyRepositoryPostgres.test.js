@@ -96,16 +96,16 @@ describe('ReplyRepositoryPostgres', () => {
   describe('function isAuthorized', () => {
     it('should throw AuthorizationError when user is not authorized to access', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({}); // user-123
+      await UsersTableTestHelper.addUser({});
       await ThreadsTableTestHelper.addThread({});
       await CommentsTableTestHelper.addComment({});
-      await RepliesTableTestHelper.addReply({}); // added reply-123 as user-123
+      await RepliesTableTestHelper.addReply({});
 
       const anotherUser = {
         id: 'user-456',
-        username: 'bukanuserbiasa',
-        password: '12345678',
-        fullname: 'nama panjang',
+        username: 'fahram',
+        password: '12011988',
+        fullname: 'Khaidir Fahram',
       };
       await UsersTableTestHelper.addUser(anotherUser);
 

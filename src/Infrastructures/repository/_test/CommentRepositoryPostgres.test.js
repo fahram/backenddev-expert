@@ -92,15 +92,15 @@ describe('CommentRepositoryPostgres', () => {
   describe('function isAuthorized', () => {
     it('should throw AuthorizationError when user is not authorized to access', async () => {
       // Arrange
-      await UsersTableTestHelper.addUser({}); // user-123
+      await UsersTableTestHelper.addUser({});
       await ThreadsTableTestHelper.addThread({});
-      await CommentsTableTestHelper.addComment({}); // added comment-123 as user-123
+      await CommentsTableTestHelper.addComment({});
 
       const anotherUser = {
         id: 'user-456',
-        username: 'bukanuserbiasa',
-        password: '12345678',
-        fullname: 'nama panjang',
+        username: 'fahram',
+        password: '12011988',
+        fullname: 'Khaidir Fahram',
       };
       await UsersTableTestHelper.addUser(anotherUser);
 
@@ -148,11 +148,15 @@ describe('CommentRepositoryPostgres', () => {
     it('should get all available and deleted comments of a thread correctly', async () => {
       // Arrange
       await UsersTableTestHelper.addUser({});
-      await ThreadsTableTestHelper.addThread({}); // thread-123
-      await CommentsTableTestHelper.addComment({}); // comment with content, id = comment-123
+      await ThreadsTableTestHelper.addThread({});
+      await CommentsTableTestHelper.addComment({});
       await CommentsTableTestHelper.addComment({
-        id: 'comment-456', content: 'komentar lain', thread: 'thread-123', owner: 'user-123', is_delete: true,
-      }); // deleted comment
+        id: 'comment-456',
+        content: 'komentar lain',
+        thread: 'thread-123',
+        owner: 'user-123',
+        is_delete: true,
+      });
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
 
       // Action
