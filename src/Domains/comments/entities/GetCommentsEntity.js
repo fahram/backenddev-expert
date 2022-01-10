@@ -4,13 +4,12 @@ class GetCommentsEntity {
     this._verifyPayload(payload);
 
     this.id = payload.id;
-    this.username = payload.username;
+    this.content = payload.is_delete
+      ? '**komentar telah dihapus**'
+      : payload.content;
     this.date = payload.date;
-    if (payload.is_delete) {
-      this.content = '**komentar telah dihapus**';
-    } else {
-      this.content = payload.content;
-    }
+    this.username = payload.username;
+    this.is_delete = payload.is_delete;
   }
 
   _verifyPayload(payload) {

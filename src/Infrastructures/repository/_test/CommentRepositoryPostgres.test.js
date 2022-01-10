@@ -164,8 +164,17 @@ describe('CommentRepositoryPostgres', () => {
 
       // Assert
       expect(comments).toHaveLength(2);
+      expect(comments[0].id).toEqual('comment-123');
       expect(comments[0].content).toEqual('sebuah komentar');
+      expect(comments[0].username).toEqual('dicoding');
+      expect(comments[0].date).toBeInstanceOf(Date);
+      expect(comments[0].is_delete).toEqual(false);
+
+      expect(comments[1].id).toEqual('comment-456');
       expect(comments[1].content).toEqual('**komentar telah dihapus**');
+      expect(comments[1].username).toEqual('dicoding');
+      expect(comments[1].date).toBeInstanceOf(Date);
+      expect(comments[1].is_delete).toEqual(true);
     });
   });
 });

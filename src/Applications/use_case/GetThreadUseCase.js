@@ -11,9 +11,9 @@ class GetThreadUseCase {
     await this._threadRepository.verifyAvailableThread(threadId);
     const thread = await this._threadRepository.getThreadById(threadId);
     const comments = await this._commentRepository.getAllCommentsOfThread(threadId);
+    const replies = await this._replyRepository.getAllRepliesOfComment(comments.map((x) => x.id));
     for (const comment of comments) {
-      const replies = await this._replyRepository.getAllRepliesOfComment(comment.id);
-      comment.replies = replies;
+      comment.replies = replies.filter((reply) => reply.comment === comment.id);
     }
     thread.comments = comments;
     return thread;

@@ -27,7 +27,7 @@ describe('GetThreadUseCase', () => {
       username: 'dicoding',
       comments: expectedComments,
     });
-    const commentId = 'comment-123';
+    const commentId = ['comment-123'];
     const expectedReplies = [
       new GetRepliesEntity({
         id: 'reply-123',
@@ -43,12 +43,12 @@ describe('GetThreadUseCase', () => {
     const mockReplyRepository = new ReplyRepository();
 
     /** mocking needed function */
-    mockThreadRepository.verifyAvailableThread = jest.fn()
-      .mockImplementation(() => Promise.resolve());
+    mockThreadRepository.verifyAvailableThread = jest.fn(() => Promise.resolve());
     mockCommentRepository.getAllCommentsOfThread = jest.fn()
       .mockImplementation(() => Promise.resolve(expectedComments));
     mockThreadRepository.getThreadById = jest.fn()
       .mockImplementation(() => Promise.resolve(expectedThread));
+
     mockReplyRepository.getAllRepliesOfComment = jest.fn()
       .mockImplementation(() => Promise.resolve(expectedReplies));
 

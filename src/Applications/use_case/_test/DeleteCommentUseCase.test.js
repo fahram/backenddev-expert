@@ -15,8 +15,7 @@ describe('DeleteCommentUseCase', () => {
     const mockThreadRepository = new ThreadRepository();
 
     /** mocking needed function */
-    mockThreadRepository.verifyAvailableThread = jest.fn()
-      .mockImplementation(() => Promise.resolve());
+    mockThreadRepository.verifyAvailableThread = jest.fn(() => Promise.resolve());
     mockCommentRepository.verifyAvailableComment = jest.fn()
       .mockImplementation(() => Promise.resolve());
     mockCommentRepository.isAuthorized = jest.fn()
