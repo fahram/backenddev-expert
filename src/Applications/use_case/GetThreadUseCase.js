@@ -1,5 +1,6 @@
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-restricted-syntax */
+const DetailedCommentsReplies = require('../../Domains/comments/entities/CommentsReplies');
+const DetailedThreadComments = require('../../Domains/threads/entities/ThreadComments');
+
 class GetThreadUseCase {
   constructor({ commentRepository, threadRepository, replyRepository }) {
     this._commentRepository = commentRepository;
@@ -11,12 +12,10 @@ class GetThreadUseCase {
     await this._threadRepository.verifyAvailableThread(threadId);
     const thread = await this._threadRepository.getThreadById(threadId);
     const comments = await this._commentRepository.getAllCommentsOfThread(threadId);
-    const replies = await this._replyRepository.getAllRepliesOfComment(comments.map((x) => x.id));
-    for (const comment of comments) {
-      comment.replies = replies.filter((reply) => reply.comment === comment.id);
-    }
-    thread.comments = comments;
-    return thread;
+    const ids = comments.map((x) => x.id);
+    const replies = await this._replyRepository.getAllRepliesOfComment(ids);
+    const detailedComments = new DetailedCommentsReplies(comments, replies);
+    return new DetailedThreadComments(thread, detailedComments.comments);
   }
 }
 

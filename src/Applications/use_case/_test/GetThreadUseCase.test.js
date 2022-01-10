@@ -1,23 +1,23 @@
-const GetCommentsEntity = require('../../../Domains/comments/entities/GetCommentsEntity');
 const GetThreadEntity = require('../../../Domains/threads/entities/GetThreadEntity');
 const CommentRepository = require('../../../Domains/comments/CommentRepository');
 const ThreadRepository = require('../../../Domains/threads/ThreadRepository');
 const GetThreadUseCase = require('../GetThreadUseCase');
 const ReplyRepository = require('../../../Domains/replies/ReplyRepository');
-const GetRepliesEntity = require('../../../Domains/replies/entities/GetRepliesEntity');
+const CommentsReplies = require('../../../Domains/comments/entities/CommentsReplies');
+const ThreadComments = require('../../../Domains/threads/entities/ThreadComments');
 
 describe('GetThreadUseCase', () => {
   it('it should orchecstrate the get thread detail action correctly', async () => {
     // Arrange
     const threadId = 'thread-123';
     const expectedComments = [
-      new GetCommentsEntity({
+      {
         id: 'comment-123',
         username: 'dicoding',
         date: '2022-01-09T07:19:09.775Z',
         content: 'sebuah komentar',
         is_delete: false,
-      }),
+      },
     ];
     const expectedThread = new GetThreadEntity({
       id: 'thread-123',
@@ -25,18 +25,27 @@ describe('GetThreadUseCase', () => {
       body: 'sebuah body',
       date: '2022-01-09T07:19:09.775Z',
       username: 'dicoding',
-      comments: expectedComments,
     });
     const commentId = ['comment-123'];
     const expectedReplies = [
-      new GetRepliesEntity({
+      {
         id: 'reply-123',
         content: 'sebuah komentar',
         date: '2022-01-09T07:19:09.775Z',
         username: 'dicoding',
         is_delete: false,
-      }),
+      },
     ];
+    const commentsReplies = new CommentsReplies(
+      expectedComments,
+      expectedReplies,
+    );
+
+    const expectedResponse = new ThreadComments(
+      expectedThread,
+      commentsReplies.comments,
+    );
+
     /** creating dependency of use case */
     const mockCommentRepository = new CommentRepository();
     const mockThreadRepository = new ThreadRepository();
@@ -61,7 +70,7 @@ describe('GetThreadUseCase', () => {
     });
     const threadResult = await getThreadUseCase.execute(threadId);
     // Assert
-    expect(threadResult).toStrictEqual(expectedThread);
+    expect(threadResult).toStrictEqual(expectedResponse);
     expect(mockThreadRepository.verifyAvailableThread).toBeCalledWith(threadId);
     expect(mockThreadRepository.getThreadById).toBeCalledWith(threadId);
     expect(mockCommentRepository.getAllCommentsOfThread).toBeCalledWith(threadId);
