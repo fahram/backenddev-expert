@@ -5,7 +5,7 @@ class CommentsReplies {
     }
 
     this.comments = comments.map((comment) => {
-      const replies = detailedReplies.filter((reply) => reply.commentId === comment.id)
+      const replies = detailedReplies.filter((reply) => reply.comment === comment.id)
         .map((reply) => ({
           id: reply.id,
           content: reply.content,

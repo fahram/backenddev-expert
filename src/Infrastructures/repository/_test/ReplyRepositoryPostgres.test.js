@@ -160,15 +160,15 @@ describe('ReplyRepositoryPostgres', () => {
       await RepliesTableTestHelper.addReply({}); // reply with content, id = reply-123
       await RepliesTableTestHelper.addReply({
         id: 'reply-456',
-        content: 'balasan lain',
         comment: 'comment-123',
+        content: 'balasan lain',
         owner: 'user-123',
         is_delete: true,
       }); // deleted reply
       const replyRepositoryPostgres = new ReplyRepositoryPostgres(pool, {});
 
       // Action
-      const replies = await replyRepositoryPostgres.getAllRepliesOfComment(['comment-123']);
+      const replies = await replyRepositoryPostgres.getAllRepliesOfComment();
 
       // Assert
       expect(replies).toHaveLength(2);

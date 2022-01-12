@@ -1,5 +1,5 @@
-const DetailedCommentsReplies = require('../../Domains/comments/entities/CommentsReplies');
-const DetailedThreadComments = require('../../Domains/threads/entities/ThreadComments');
+const CommentsReplies = require('../../Domains/comments/entities/CommentsReplies');
+const ThreadComments = require('../../Domains/threads/entities/ThreadComments');
 
 class GetThreadUseCase {
   constructor({ commentRepository, threadRepository, replyRepository }) {
@@ -12,10 +12,9 @@ class GetThreadUseCase {
     await this._threadRepository.verifyAvailableThread(threadId);
     const thread = await this._threadRepository.getThreadById(threadId);
     const comments = await this._commentRepository.getAllCommentsOfThread(threadId);
-    const ids = comments.map((x) => x.id);
-    const replies = await this._replyRepository.getAllRepliesOfComment(ids);
-    const detailedComments = new DetailedCommentsReplies(comments, replies);
-    return new DetailedThreadComments(thread, detailedComments.comments);
+    const replies = await this._replyRepository.getAllRepliesOfComment();
+    const detailedComments = new CommentsReplies(comments, replies);
+    return new ThreadComments(thread, detailedComments.comments);
   }
 }
 

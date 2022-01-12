@@ -5,8 +5,8 @@ const pool = require('../src/Infrastructures/database/postgres/pool');
 const RepliesTableHelper = {
   async addReply({
     id = 'reply-123',
-    content = 'sebuah balasan',
     comment = 'comment-123',
+    content = 'sebuah balasan',
     owner = 'user-123',
     is_delete = false,
   }) {

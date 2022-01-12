@@ -16,6 +16,7 @@ describe('a GetRepliesEntity entity', () => {
     // Arrange
     const payload = {
       id: 3.14,
+      comment: 'comment-123',
       content: 'sebuah balasan',
       date: 'hari jumat',
       username: true,
@@ -30,7 +31,8 @@ describe('a GetRepliesEntity entity', () => {
   it('leave the content as is if is_delete is false', () => {
     // Arrange
     const payload = {
-      id: 'comment-123',
+      id: 'reply-123',
+      comment: 'comment-123',
       content: 'sebuah balasan',
       date: '2021-11-26T23:19:06Z',
       username: 'user-123',
@@ -52,7 +54,8 @@ describe('a GetRepliesEntity entity', () => {
   it('set content to **balasan telah dihapus** if is_delete is true', () => {
     // Arrange
     const payload = {
-      id: 'comment-123',
+      id: 'reply-123',
+      comment: 'comment-123',
       content: 'sebuah balasan',
       date: '2021-11-26T23:19:06Z',
       username: 'user-123',
