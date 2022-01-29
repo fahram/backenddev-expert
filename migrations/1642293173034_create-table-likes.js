@@ -5,15 +5,15 @@ exports.shorthands = undefined;
 exports.up = (pgm) => {
   pgm.createTable('likes', {
     id: {
-      type: 'VARCHAR(16)',
+      type: 'VARCHAR(50)',
       primaryKey: true,
     },
     comment: {
-      type: 'VARCHAR(18)',
+      type: 'VARCHAR(50)',
       notNull: true,
     },
     owner: {
-      type: 'VARCHAR(15)',
+      type: 'VARCHAR(50)',
       notNull: true,
     },
   });

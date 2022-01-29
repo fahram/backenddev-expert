@@ -8,17 +8,14 @@ describe('AddLikeUseCase', () => {
   it('should orchestrate the add like use case properly', async () => {
     // arrange
     const useCaseParam = {
-      threadId: 'thread-123',
+      thread: 'thread-123',
       comment: 'comment-123',
+      owner: 'user-123',
     };
 
     const useCaseHeader = {
       authorization: 'Bearer accessToken',
     };
-
-    const userIdFromAccessToken = 'user-123';
-
-    const expectedAccessToken = 'accessToken';
 
     /** creating dependancies for use case */
     const mockLikeRepository = new LikeRepository();
@@ -36,28 +33,23 @@ describe('AddLikeUseCase', () => {
     mockAuthenticationTokenManager.decodePayload = jest.fn()
       .mockImplementation(() => Promise.resolve({ id: 'user-123' }));
 
-    mockCommentRepository.checkCommentIsExist = jest.fn()
+    mockCommentRepository.verifyAvailableComment = jest.fn()
       .mockImplementation(() => Promise.resolve());
 
     /** creating use case instance */
     const addLikeUseCase = new AddLikeUseCase({
       commentRepository: mockCommentRepository,
       likeRepository: mockLikeRepository,
-      authenticationTokenManager: mockAuthenticationTokenManager,
     });
 
     // action
     await addLikeUseCase.execute(useCaseParam, useCaseHeader);
 
     // assert
-    expect(mockAuthenticationTokenManager.getTokenFromHeader)
-      .toBeCalledWith(useCaseHeader.authorization);
-    expect(mockAuthenticationTokenManager.verifyAccessToken).toBeCalledWith(expectedAccessToken);
-    expect(mockAuthenticationTokenManager.decodePayload).toBeCalledWith(expectedAccessToken);
-    expect(mockCommentRepository.checkCommentIsExist).toBeCalledWith(useCaseParam);
+    expect(mockCommentRepository.verifyAvailableComment).toBeCalledWith(useCaseParam.comment);
     expect(mockLikeRepository.addLike).toBeCalledWith(new NewLike({
       comment: useCaseParam.comment,
-      owner: userIdFromAccessToken,
+      owner: useCaseParam.owner,
     }));
   });
 });

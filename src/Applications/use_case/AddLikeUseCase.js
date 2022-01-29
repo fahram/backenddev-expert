@@ -2,22 +2,15 @@ const NewLike = require('../../Domains/likes/entities/NewLike');
 
 class AddLikeUseCase {
   constructor({
-    commentRepository, likeRepository, authenticationTokenManager,
+    commentRepository, likeRepository,
   }) {
     this._commentRepository = commentRepository;
     this._likeRepository = likeRepository;
-    this._authenticationTokenManager = authenticationTokenManager;
   }
 
-  async execute(useCaseParam, useCaseHeader) {
-    const accessToken = await this._authenticationTokenManager
-      .getTokenFromHeader(useCaseHeader.authorization);
-    await this._authenticationTokenManager.verifyAccessToken(accessToken);
-    const { id: owner } = await this._authenticationTokenManager.decodePayload(accessToken);
-    await this._commentRepository.checkCommentIsExist(useCaseParam);
-    const newLike = new NewLike({
-      comment: useCaseParam.comment, owner,
-    });
+  async execute(useCasePayload) {
+    const newLike = new NewLike(useCasePayload);
+    await this._commentRepository.verifyAvailableComment(newLike.comment);
     return this._likeRepository.addLike(newLike);
   }
 }

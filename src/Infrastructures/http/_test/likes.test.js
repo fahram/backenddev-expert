@@ -81,9 +81,9 @@ describe('endpoints concerning CRUD on comments', () => {
           Authorization: `Bearer ${responseAuthJson.data.accessToken}`,
         },
       });
+      const responseJson = JSON.parse(response.payload);
 
       // assert
-      const responseJson = JSON.parse(response.payload);
       expect(response.statusCode).toEqual(200);
       expect(responseJson.status).toEqual('success');
     });
