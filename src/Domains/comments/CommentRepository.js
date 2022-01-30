@@ -22,6 +22,10 @@ class CommentRepository {
   async getAllCommentsOfThread(threadId) {
     throw new Error('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
+
+  async checkCommentBelongsToThread(thread, comment) {
+    throw new Error('COMMENT_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+  }
 }
 
 module.exports = CommentRepository;

@@ -70,6 +70,17 @@ class CommentRepositoryPostgres extends CommentRepository {
     const comments = result.rows.map((comment) => new GetCommentsEntity(comment));
     return comments;
   }
+
+  async checkCommentBelongsToThread(thread, comment) {
+    const query = {
+      text: 'SELECT 1 FROM comments WHERE id = $1 AND thread= $2',
+      values: [comment, thread],
+    };
+    const result = await this._pool.query(query);
+    if (!result.rows[0]) {
+      throw new NotFoundError('comment yang anda cari tidak ada di thread ini');
+    }
+  }
 }
 
 module.exports = CommentRepositoryPostgres;

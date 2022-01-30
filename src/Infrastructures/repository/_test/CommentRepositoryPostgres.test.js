@@ -177,4 +177,22 @@ describe('CommentRepositoryPostgres', () => {
       expect(comments[1].is_delete).toEqual(true);
     });
   });
+
+  describe('checkCommentBelongsToThread', () => {
+    it('should not throw error if comment exists in thread', async () => {
+      await CommentsTableTestHelper.addComment({});
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
+      await expect(commentRepositoryPostgres
+        .checkCommentBelongsToThread('thread-123', 'comment-123'))
+        .resolves.not.toThrowError(NotFoundError);
+    });
+
+    it('should throw error if comment is not in thread', async () => {
+      await CommentsTableTestHelper.addComment({});
+      const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
+      await expect(commentRepositoryPostgres
+        .checkCommentBelongsToThread('thread-xxx', 'comment-123'))
+        .rejects.toThrowError(NotFoundError);
+    });
+  });
 });

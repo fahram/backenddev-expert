@@ -33,7 +33,7 @@ describe('AddLikeUseCase', () => {
     mockAuthenticationTokenManager.decodePayload = jest.fn()
       .mockImplementation(() => Promise.resolve({ id: 'user-123' }));
 
-    mockCommentRepository.verifyAvailableComment = jest.fn()
+    mockCommentRepository.checkCommentBelongsToThread = jest.fn()
       .mockImplementation(() => Promise.resolve());
 
     /** creating use case instance */
@@ -46,7 +46,8 @@ describe('AddLikeUseCase', () => {
     await addLikeUseCase.execute(useCaseParam, useCaseHeader);
 
     // assert
-    expect(mockCommentRepository.verifyAvailableComment).toBeCalledWith(useCaseParam.comment);
+    expect(mockCommentRepository.checkCommentBelongsToThread)
+      .toBeCalledWith(useCaseParam.thread, useCaseParam.comment);
     expect(mockLikeRepository.addLike).toBeCalledWith(new NewLike({
       comment: useCaseParam.comment,
       owner: useCaseParam.owner,

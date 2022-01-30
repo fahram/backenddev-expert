@@ -1,4 +1,4 @@
-const NewLike = require('../entities/NewLike');
+const NewLike = require('../NewLike');
 
 describe('a NewLike entity', () => {
   it('should throw error if payload does not meeet criteria', () => {
