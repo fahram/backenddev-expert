@@ -10,7 +10,10 @@ class AddLikeUseCase {
 
   async execute(useCasePayload) {
     const newLike = new NewLike(useCasePayload);
-    await this._commentRepository.verifyAvailableComment(newLike.comment);
+    await this._commentRepository.checkCommentBelongsToThread(
+      useCasePayload.thread,
+      useCasePayload.comment,
+    );
     return this._likeRepository.addLike(newLike);
   }
 }
