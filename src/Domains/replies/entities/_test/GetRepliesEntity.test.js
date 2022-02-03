@@ -57,7 +57,7 @@ describe('a GetRepliesEntity entity', () => {
       id: 'reply-123',
       comment: 'comment-123',
       content: 'sebuah balasan',
-      date: '2021-11-26T23:19:06Z',
+      date: new Date('2021-11-26T23:19:06Z'),
       username: 'user-123',
       is_delete: true,
     };
@@ -71,6 +71,7 @@ describe('a GetRepliesEntity entity', () => {
     expect(id).toEqual(payload.id);
     expect(content).toEqual('**balasan telah dihapus**');
     expect(date).toEqual(payload.date);
+    expect(date).toBeInstanceOf(Date);
     expect(username).toEqual(payload.username);
   });
 });

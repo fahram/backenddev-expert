@@ -30,7 +30,7 @@ describe('a GetThreadEntity entity', () => {
       id: 'thread-123',
       title: 'sebuah judul',
       body: 'sebuah body',
-      date: '2021-11-26T10:51:59Z',
+      date: new Date('2021-11-26T10:51:59Z'),
       username: 'dicoding',
     };
 
@@ -40,6 +40,7 @@ describe('a GetThreadEntity entity', () => {
     expect(getThreadEntity.title).toEqual(payload.title);
     expect(getThreadEntity.body).toEqual(payload.body);
     expect(getThreadEntity.date).toEqual(payload.date);
+    expect(getThreadEntity.date).toBeInstanceOf(Date);
     expect(getThreadEntity.username).toEqual(payload.username);
   });
 });
