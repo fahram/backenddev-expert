@@ -10,6 +10,14 @@ class LikeRepository {
   async getLikeCountByComment(comment) {
     throw new Error('LIKE_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
+
+  async deleteLikeByCommentAndOwner({ comment, owner }) {
+    throw new Error('LIKE_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+  }
+
+  async checkLikeIsExists({ comment, owner }) {
+    throw new Error('LIKE_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+  }
 }
 
 module.exports = LikeRepository;

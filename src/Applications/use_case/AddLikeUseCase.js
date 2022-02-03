@@ -9,12 +9,16 @@ class AddLikeUseCase {
   }
 
   async execute(useCasePayload) {
-    const newLike = new NewLike(useCasePayload);
     await this._commentRepository.checkCommentBelongsToThread(
       useCasePayload.thread,
       useCasePayload.comment,
     );
-    return this._likeRepository.addLike(newLike);
+    const newLike = new NewLike(useCasePayload);
+    if (await this._likeRepository.checkLikeIsExists(newLike)) {
+      await this._likeRepository.deleteLikeByCommentAndOwner(newLike);
+    } else {
+      await this._likeRepository.addLike(newLike);
+    }
   }
 }
 

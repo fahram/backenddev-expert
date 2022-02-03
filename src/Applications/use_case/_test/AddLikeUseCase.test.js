@@ -23,6 +23,9 @@ describe('AddLikeUseCase', () => {
     const mockAuthenticationTokenManager = new AuthenticationTokenManager();
 
     /** mocking needed functions */
+    mockLikeRepository.checkLikeIsExists = jest.fn()
+      .mockImplementation(() => Promise.resolve(false));
+
     mockLikeRepository.addLike = jest.fn()
       .mockImplementation(() => Promise.resolve());
 

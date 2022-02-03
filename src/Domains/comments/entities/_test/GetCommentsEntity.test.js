@@ -54,7 +54,7 @@ describe('a GetCommentsEntity entity', () => {
     const payload = {
       id: 'comment-123',
       username: 'user-123',
-      date: '2021-11-26T23:19:06Z',
+      date: new Date('2021-11-26T23:19:06Z'),
       content: 'sebuah komentar',
       is_delete: true,
     };
@@ -68,6 +68,7 @@ describe('a GetCommentsEntity entity', () => {
     expect(id).toEqual(payload.id);
     expect(username).toEqual(payload.username);
     expect(date).toEqual(payload.date);
+    expect(date).toBeInstanceOf(Date);
     expect(content).toEqual('**komentar telah dihapus**');
   });
 });
