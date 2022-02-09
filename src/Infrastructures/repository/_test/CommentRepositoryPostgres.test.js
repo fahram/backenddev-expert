@@ -180,6 +180,8 @@ describe('CommentRepositoryPostgres', () => {
 
   describe('checkCommentBelongsToThread', () => {
     it('should not throw error if comment exists in thread', async () => {
+      await UsersTableTestHelper.addUser({});
+      await ThreadsTableTestHelper.addThread({});
       await CommentsTableTestHelper.addComment({});
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
       await expect(commentRepositoryPostgres
@@ -188,6 +190,8 @@ describe('CommentRepositoryPostgres', () => {
     });
 
     it('should throw error if comment is not in thread', async () => {
+      await UsersTableTestHelper.addUser({});
+      await ThreadsTableTestHelper.addThread({});
       await CommentsTableTestHelper.addComment({});
       const commentRepositoryPostgres = new CommentRepositoryPostgres(pool, {});
       await expect(commentRepositoryPostgres
