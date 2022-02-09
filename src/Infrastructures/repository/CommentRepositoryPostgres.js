@@ -38,12 +38,12 @@ class CommentRepositoryPostgres extends CommentRepository {
 
   async isAuthorized(id, owner) {
     const query = {
-      text: 'SELECT * FROM comments WHERE id = $1',
-      values: [id],
+      text: 'SELECT * FROM comments WHERE id = $1 and owner = $2',
+      values: [id, owner],
     };
 
     const result = await this._pool.query(query);
-    if (result.rows[0].owner !== owner) {
+    if (!result.rows.length) {
       throw new AuthorizationError('Anda tidak berhak menghapus komentar ini');
     }
   }
