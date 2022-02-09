@@ -21,16 +21,6 @@ class LikeRepositoryPostgres extends LikeRepository {
     return result.rows[0];
   }
 
-  async getLikeById({ comment, owner }) {
-    const query = {
-      text: 'SELECT * FROM likes WHERE comment = $1 AND owner = $2',
-      values: [comment, owner],
-    };
-
-    const result = await this._pool.query(query);
-    return result.rows[0];
-  }
-
   async getLikeCountByComment(comment) {
     const query = {
       text: 'SELECT COUNT(*)::int FROM likes WHERE comment = $1',
